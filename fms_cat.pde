@@ -1,13 +1,16 @@
-final int RESO = 240;
-final int FRAMES = 64;
-final float COLOR_DENS = 0.1;
-final float COLOR_FREQ = 4.0;
-final float CAT_SIZE = RESO * 0.8;
-final float CAT_AMP = RESO / 12.0;
-final float CAT_FREQ = 1.0;
+// == definitions ==============================================================
+final int RESO = 240; // width and height
+final int FRAMES = 64; // total frames (does perfect loop)
+final float COLOR_DENS = 0.1; // density of color wave
+final float COLOR_FREQ = 4.0; // frequency of color wave
+final float CAT_SIZE = RESO * 0.8; // size of cat
+final float CAT_AMP = RESO / 12.0; // amp of cat oscillation
+final float CAT_FREQ = 1.0; // frequency of cat oscillation
 
-PImage imageCat;
+// == global variables =========================================================
+PImage imageCat; // cat.png
 
+// == this is the famous catColor function =====================================
 color catColor( float t ) {
   return color(
     128 + 127 * cos( t ),
@@ -16,6 +19,7 @@ color catColor( float t ) {
   );
 }
 
+// == initial procedure ========================================================
 void setup() {
   size( 240, 240 );
   noStroke();
@@ -23,10 +27,11 @@ void setup() {
   imageCat = loadImage( "cat.png" );
 }
 
+// == main procedure ===========================================================
 void draw(){
   float t = float( frameCount ) / FRAMES;
   
-  // == background ==
+  // -- background -------------------------------------------------------------
   for ( int iy = 0; iy < 20; iy ++ ) {
     for ( int ix = 0; ix < 20; ix ++ ) {
       float x = RESO / 20.0 * ix;
@@ -42,7 +47,7 @@ void draw(){
     }
   }
 
-  // == image ==
+  // -- image ------------------------------------------------------------------
   {
     float tCat = 2.0 * PI * t;
 
@@ -54,6 +59,6 @@ void draw(){
     image( imageCat, x, y, w, h );
   }
 
-  // == save it ==
+  // -- save it ----------------------------------------------------------------
   save( "capture/" + nf( frameCount, 5 ) + ".png" );
 }
